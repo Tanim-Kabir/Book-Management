@@ -3,6 +3,8 @@ import React from 'react';
 import Page1 from './components/Page-1';
 import Page2 from './components/Page-2';
 import Page3 from './components/Page-3';
+import Home from './components/Home';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 const buttonClick = () => {
   document.getElementById("total").innerHTML = "100";
@@ -11,13 +13,14 @@ const buttonClick = () => {
 }
 
 function App() {
-  return (
-    <>
-    <Page1 />
-    <Page2 />
-    <Page3 />
-    </>
-  );
+  return <BrowserRouter>
+    <Routes>
+      <Route path='/home' element={<Home />} />
+      <Route path='/page1' element={<Page1 />} />
+      <Route path='/page2' element={<Page2 />} />
+      <Route path='/page3' element={<Page3 />} />
+    </Routes>
+  </BrowserRouter>
 }
 
 export default App;
