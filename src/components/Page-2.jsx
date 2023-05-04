@@ -1,42 +1,45 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Home from './Home';
+import axios from 'axios';
 
 export const Page2 = () => {
+  const [users, setUsers] = useState([{}]);
+
+  useEffect(() => {
+    getUsers(); 
+  }, []);
+
+  function getUsers() {
+    axios.get('http://localhost:80/api/user').then(function(response){
+      console.log(response.data);
+      setUsers(response.data);
+    });
+  }
+  
   return (
     <>
     <Home />
     <section className='flex justify-center'>
-      <div className='pl-4 pt-4 border-black border-2'>
-        <table className='table-auto'>
+      <div className='pl-4 pt-4'>
+        <table className='border-black border-2'>
           <thead>
-            <tr className='w-8 border-2 border-black'>
-              <th className='w-12'>SL</th>
+            <tr className='text-left w-8 border-black border-b-2'>
+              <th className='w-12 pl-1'>SL</th>
               <th className='text-left w-80'>Name</th>
-              <th>Action</th>
+              <th className='text-center'>Actions</th>
             </tr>
           </thead>
           <tbody>
-            <tr className='w-8 border-2 border-black'>
-              <th className='w-12'>SL</th>
-              <th className='text-left w-80'>Name</th>
-              <th>Action</th>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>January</td>
-              <td>
-                <button type="button" className='mr-2 w-12 '>Edit</button>
-                <button type="button" className='w-12 '>Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>February</td>
-              <td>
-                <button type="button" className='mr-2 w-12 '>Edit</button>
-                <button type="button" className='w-12 '>Delete</button>
-              </td>
-            </tr>
+            {users.map((user, key) =>
+              <tr key={key} className='border-t-2 hover:bg-zinc-300'>
+                <td className='pl-1'>{user.SL}</td>
+                <td>{user.Name}</td>
+                <td>
+                  <button className='btn-page2'>Edit</button>
+                  <button className='btn-page2'>Delete</button>
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

@@ -3,7 +3,6 @@ import React from 'react';
 import Page1 from './components/Page-1';
 import Page2 from './components/Page-2';
 import Page3 from './components/Page-3';
-import Home from './components/Home';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 const buttonClick = () => {
@@ -15,7 +14,7 @@ const buttonClick = () => {
 function App() {
   return <BrowserRouter>
     <Routes>
-      <Route path='/home' element={<Home />} />
+      <Route path='/' element={<Page1 />} />
       <Route path='/page1' element={<Page1 />} />
       <Route path='/page2' element={<Page2 />} />
       <Route path='/page3' element={<Page3 />} />
