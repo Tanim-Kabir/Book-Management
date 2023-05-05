@@ -1,34 +1,51 @@
 import React from 'react';
 import Home from './Home';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 export const Page3 = () => {
   let type = null;
-
-  const [inputs, setInputs] = useState({
+  
+  const [p3inputs, setP3inputs] = useState({
     firstName: '', pAge: '', type: '', f: null
-  })
-  let f = inputs.f;
+  });
+  let f = p3inputs.f;
 
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    setInputs(values => ({...values, [name]: value}));
+    setP3inputs(values => ({...values, [name]: value}));
   }
 
   const handleCheckBox = (event) => {
     type = event.target.checked ? event.target.name : null;
-    setInputs(values => ({...values, ["type"]: type}));
+    setP3inputs(values => ({...values, ["type"]: type}));
   }
+
+  let dummyVar = null;
+  const [p3users, setP3users] = useState({});
+  /*useEffect(() => {
+    getP3users();
+    
+    }, []); */
 
   const page3Submit = (event) => {
     event.preventDefault();
-    axios.post('http://localhost:80/api/page3.php', inputs).then(function(response){
-      console.log(inputs);
+    axios.post('http://localhost/api/page3.php', p3inputs).then(function(response){
+      /*console.log(p3inputs);*/
+    });
+    axios.get('http://localhost:80/api/page3.php').then(function(response){
+      /*console.log(response.data);*/
+      setP3users(response.data);
+      setP3users(values => ({...values, [name]: value}));
+      console.log(p3users);
     });
   }
+  
+  /*function getP3users() {
+    setP3users(dummyVar);
+  }*/
 
   return (
     <>
@@ -37,12 +54,12 @@ export const Page3 = () => {
       <form onSubmit={page3Submit} className='pl-4 w-96'>
         <div className='mt-2 flex'>
           <label className='text-sm w-16  font-medium text-gray-900 pt-1'>
-            Name
+            Keyword
           </label>
           <input
             type="text"
             name="firstName"
-            value={inputs.firstName}
+            value={p3inputs.firstName}
             onChange={handleChange}
             className="pl-2 block w-72 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
           />
@@ -54,7 +71,7 @@ export const Page3 = () => {
           </label>
           <select
             name="pAge"
-            value={inputs.pAge}
+            value={p3inputs.pAge}
             onChange={handleChange}
             className="pl-1 block w-60 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
           >
@@ -120,20 +137,17 @@ export const Page3 = () => {
               <th className='w-12 pl-1'>SL</th>
               <th className='text-left w-60'>Name</th>
               <th className='text-left w-20'>P.Name</th>
+              <th className='text-left w-20'>Page No</th>
               <th className='text-left w-20'>P.Date</th>
             </tr>
           </thead>
           <tbody>
-            {/* {users.map((user, key) =>
+            {/*{p3users.map((p3user, key) =>
               <tr key={key} className='border-t-2 hover:bg-zinc-300'>
-                <td className='pl-1'>{user.SL}</td>
-                <td>{user.Name}</td>
-                <td>
-                  <button className='btn-page2'>Edit</button>
-                  <button className='btn-page2'>Delete</button>
-                </td>
+                <td className='pl-1'>{p3user.SL}</td>
+                <td>{p3user.Name}</td>
               </tr>
-            )}  */}
+            )}*/}
           </tbody>
         </table>
       </div>

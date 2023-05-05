@@ -6,7 +6,7 @@ export const Page2 = () => {
   const [users, setUsers] = useState([{}]);
 
   useEffect(() => {
-    getUsers(); 
+    getUsers();
   }, []);
 
   function getUsers() {
